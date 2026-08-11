@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1224">
+<title>Junior Justice Bureau — Case Files</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
+:root{--navy:#0b1224;--navy2:#14203b;--paper:#f7f1e3;--paper2:#eee4ca;--gold:#d7ad45;--gold2:#f1d27a;--red:#b6424f;--green:#4c8b62;--blue:#4b78b4;--ink:#18223a;--muted:#71695c;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--shadow:0 22px 60px #0005}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(circle at 10% 0,#d7ad4517,transparent 32%),radial-gradient(circle at 90% 100%,#b6424f18,transparent 35%),var(--navy);color:var(--paper);font-family:var(--sans)}button{font:inherit}button:focus-visible{outline:3px solid var(--gold2);outline-offset:3px}.app{max-width:1180px;margin:auto;padding:12px 16px 50px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:10px 2px 14px}.brand{display:flex;align-items:center;gap:10px}.seal{width:43px;height:43px;border:1px solid var(--gold);border-radius:50%;display:grid;place-items:center;background:#ffffff08}.brand b{font:700 15px var(--serif);display:block}.brand small{font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--gold2)}.top-actions{display:flex;gap:7px}.icon{width:40px;height:40px;border:1px solid #f1d27a55;background:#ffffff08;color:var(--paper);border-radius:8px;cursor:pointer}
+.nav{display:flex;gap:7px;overflow:auto;padding:2px 0 12px}.nav button{white-space:nowrap;padding:9px 13px;border:1px solid #f1d27a22;background:#ffffff08;color:#f7f1e399;border-radius:7px;font-size:11px;font-weight:800;cursor:pointer}.nav .active{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.screen{display:none}.screen.active{display:block;animation:rise .28s ease}@keyframes rise{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.card{background:var(--paper);color:#282219;border-radius:12px;box-shadow:var(--shadow);overflow:hidden}.card:before{content:"";height:5px;display:block;background:linear-gradient(90deg,var(--gold),var(--red),var(--green),var(--gold))}.pad{padding:clamp(22px,4vw,44px)}h1,h2,h3{font-family:var(--serif);color:var(--ink)}h2{font-size:clamp(25px,4vw,38px);margin:0 0 8px}h3{font-size:20px}.eyebrow{display:block;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:7px}.lede{color:#5d564b;line-height:1.65;font-size:14.5px;margin:0 0 20px}.btn{border:0;border-radius:8px;padding:12px 18px;background:var(--navy);color:var(--paper);font-weight:800;cursor:pointer;transition:.15s;box-shadow:0 5px 0 #0002}.btn:hover{transform:translateY(-2px);box-shadow:0 9px 17px #0002}.btn.gold{background:var(--gold);color:#241e13}.btn.ghost{background:transparent;color:var(--ink);border:1px solid #18223a44;box-shadow:none}.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:23px}
+.hero{display:grid;grid-template-columns:1.35fr .75fr;gap:14px}.hero-main{min-height:320px;padding:clamp(25px,5vw,52px);border-radius:12px;background:linear-gradient(135deg,#0b1224,#1b2b4d);box-shadow:var(--shadow);position:relative;overflow:hidden}.hero-main:after{content:'⚖';position:absolute;right:3%;bottom:-35px;font-size:190px;opacity:.05}.hero-main h1{font-size:clamp(33px,5vw,56px);line-height:1.02;color:var(--paper);margin:0 0 14px}.hero-main p{max-width:650px;color:#f7f1e3b8;line-height:1.7}.hero-main .eyebrow{color:var(--gold2)}.hero-side{display:flex;flex-direction:column;gap:12px}.profile,.mini{background:var(--navy2);border:1px solid #f1d27a20;border-radius:12px;padding:17px}.profile{flex:1}.rank{display:flex;align-items:center;gap:12px}.rankicon{width:54px;height:54px;border-radius:11px;display:grid;place-items:center;background:#d7ad4517;border:1px solid #d7ad4566;font-size:27px}.rank small,.mini small{display:block;color:#f7f1e380;text-transform:uppercase;letter-spacing:1px;font-size:9px}.rank b{font:700 20px var(--serif);color:var(--paper)}.xp{height:8px;background:#ffffff18;border-radius:10px;overflow:hidden;margin-top:14px}.xp div{height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:.4s}.xptext{display:flex;justify-content:space-between;font-size:10px;color:#f7f1e380;margin-top:5px}.minigrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mini b{display:block;font:700 24px var(--serif);color:var(--gold2);margin-top:3px}
+.head{display:flex;justify-content:space-between;align-items:end;margin:27px 0 12px;gap:15px}.head h2{color:var(--paper);font-size:25px;margin:0}.head p{color:#f7f1e38c;font-size:11px;margin:0}.missions{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}.mission{min-height:165px;text-align:left;color:var(--paper);background:var(--navy2);border:1px solid #f1d27a20;border-radius:11px;padding:14px;cursor:pointer;position:relative;transition:.18s}.mission:hover:not(:disabled){transform:translateY(-3px);border-color:var(--gold)}.mission:disabled{opacity:.45;cursor:not-allowed}.mission .mi{font-size:28px;margin-bottom:12px}.mission small{font-size:9px;letter-spacing:1.3px;color:var(--gold2);text-transform:uppercase;font-weight:800}.mission strong{display:block;font:700 17px var(--serif);margin:4px 0}.mission em{font-style:normal;font-size:10px;color:#f7f1e380;line-height:1.4}.check{position:absolute;top:9px;right:9px;background:var(--green);width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px}
+.badges{display:flex;flex-wrap:wrap;gap:9px}.badge{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:10px;background:#d7ad4510;border:1px solid #d7ad4566}.badge.lock{opacity:.32;filter:grayscale(1)}.badge .bi{font-size:24px}.badge b{display:block;font-size:11px}.badge small{display:block;color:var(--muted);font-size:9px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:13px}.stat{background:#ffffff08;border:1px solid #f1d27a18;border-radius:9px;padding:13px}.stat b{display:block;font:700 22px var(--serif);color:var(--gold2)}.stat span{font-size:9px;color:#f7f1e37d;text-transform:uppercase;letter-spacing:1px}
+.qblock{border-top:1px solid #2822191a;padding:18px 0}.qblock:first-child{border-top:0}.qnum{font:800 10px monospace;letter-spacing:1px;color:var(--red)}.qtext{font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.5;margin:5px 0 11px}.options{display:grid;gap:8px}.opt{padding:11px 13px;border:1px solid #2822192b;background:#fffdf7;border-radius:7px;cursor:pointer;font-size:13.5px;transition:.14s}.opt:hover{border-color:var(--gold)}.opt.selected{border-color:var(--ink);background:var(--paper2);font-weight:800}.scale{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.scale.five{grid-template-columns:repeat(5,1fr)}.scale button{border:1px solid #2822192b;background:#fffdf7;color:var(--ink);padding:10px 4px;border-radius:7px;cursor:pointer;font-weight:800}.scale button.selected{background:var(--ink);color:var(--paper)}
+.hud{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);padding:12px 18px;color:var(--paper)}.hud .big{font:800 20px var(--serif);color:var(--gold2)}.spacer{flex:1}.timer{border:1px solid var(--red);color:#ffb6bd;padding:5px 10px;border-radius:6px;font:800 14px monospace}.timer.low{animation:pulse .8s infinite}@keyframes pulse{50%{opacity:.4}}.gamebody{padding:clamp(22px,4vw,42px)}.lesson{border:1px solid #d7ad4570;background:linear-gradient(#d7ad4512,transparent);border-radius:10px;padding:21px}.lessonicon{font-size:42px}.lesson ul{padding-left:20px;color:#4d473c;font-size:13.5px;line-height:1.65}.tip{border-left:4px solid var(--green);background:#4c8b6214;color:var(--green);padding:11px 13px;border-radius:4px;font-size:12.5px;font-weight:800}.progress{height:8px;background:#28221918;border-radius:10px;overflow:hidden;margin:10px 0 17px}.progress div{height:100%;background:var(--gold);transition:.25s}.casefile{border-left:6px solid var(--red);background:#fffdf7;padding:16px 17px;border-radius:5px;margin:14px 0}.casefile .tag{font:800 10px monospace;color:var(--red);letter-spacing:1.3px;text-transform:uppercase}.casefile p{font-size:14px;line-height:1.65;margin:8px 0}.feedback{display:none;margin-top:12px;padding:11px 13px;border-radius:6px;font-size:12.5px;font-weight:800}.feedback.show{display:block}.feedback.correct{background:#4c8b6215;color:var(--green)}.feedback.wrong{background:#b6424f12;color:var(--red)}.bins{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.bin{border:2px solid #28221930;background:#fffdf7;color:var(--ink);padding:14px 8px;border-radius:7px;text-align:center;font-weight:800;cursor:pointer}.stars{text-align:center;font-size:40px;letter-spacing:4px}.stars .off{opacity:.15}.clear{text-align:center}.cleargrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:15px 0}.clearbox{background:var(--paper2);padding:12px;border-radius:8px}.clearbox b{display:block;font:800 22px var(--serif);color:var(--ink)}.clearbox small{font-size:9px;text-transform:uppercase;color:var(--muted);letter-spacing:1px}
+.cert{text-align:center}.certificate{border:1px solid var(--gold);padding:27px;border-radius:8px;background:linear-gradient(135deg,#fffdf7,#f2e7c9)}.certicon{font-size:74px}.toast{position:fixed;z-index:2000;left:50%;top:17px;transform:translate(-50%,-20px);opacity:0;background:var(--navy2);border:1px solid var(--gold);color:var(--gold2);padding:10px 17px;border-radius:30px;font-size:12px;font-weight:800;transition:.22s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}.hidden{display:none!important}footer{text-align:center;color:#f7f1e355;font-size:10px;margin-top:25px}
+.confetti{position:fixed;top:-15px;width:8px;height:15px;z-index:3000;animation:fall 1.7s linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+@media(max-width:850px){.hero{grid-template-columns:1fr}.missions{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.app{padding:9px}.missions{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.scale,.scale.five{grid-template-columns:repeat(2,1fr)}.bins{grid-template-columns:1fr 1fr}.hero-main{min-height:290px}}
+@media print{body{background:white;color:#111}.top,.nav,footer,.hero,.head,.missions,.badges,.stats,.btn{display:none!important}.screen{display:none!important}.screen.active{display:block!important}.card{box-shadow:none}.certificate{border:2px solid #222}}
+.sort-options .opt{justify-content:center;text-align:center;font-weight:700}.sort-options .opt.selected{background:var(--brass);border-color:var(--brass);}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div class="app">
+<header class="top"><div class="brand"><div class="seal">⚖️</div><div><b>Junior Justice Bureau</b><small>Criminal Liability Case Files</small></div></div><div class="top-actions"><button class="icon" id="sound" title="Sound">🔊</button><button class="icon" id="reset" title="Reset progress">↻</button></div></header>
+<nav class="nav" id="nav"></nav>
+
+<section class="screen active" id="screen-dashboard">
+<div class="hero"><div class="hero-main"><span class="eyebrow">Training Command Center</span><h1>Welcome back,<br>Investigator.</h1><p>Complete missions, earn XP, build streaks, unlock badges, and prove your learning through the Bureau's final assessment.</p><div class="btn-row"><button class="btn gold" id="continue">Continue Training →</button><button class="btn ghost" style="color:#fff;border-color:#ffffff44" onclick="document.getElementById('missions').scrollIntoView({behavior:'smooth'})">Mission Map</button></div></div><div class="hero-side"><div class="profile"><div class="rank"><div class="rankicon" id="rankIcon">🕵️</div><div><small>Current Rank</small><b id="rankName">Recruit</b></div></div><div class="xp"><div id="xpFill"></div></div><div class="xptext"><span id="xpText">0 XP</span><span id="nextXP">100 XP</span></div></div><div class="minigrid"><div class="mini"><small>Case Points</small><b id="points">0</b></div><div class="mini"><small>Best Streak</small><b id="streak">0</b></div></div></div></div>
+<div class="head" id="missions"><div><h2>Mission Map</h2><p>Each mission unlocks the next part of the Bureau.</p></div></div><div class="missions" id="missionGrid"></div>
+<div class="head"><div><h2>Achievement Wall</h2><p>Performance-based badges.</p></div></div><div class="badges" id="badgeWall"></div>
+<div class="stats"><div class="stat"><b id="preStat">—</b><span>Pre-Test</span></div><div class="stat"><b id="postStat">—</b><span>Post-Test</span></div><div class="stat"><b id="changeStat">—</b><span>Improvement</span></div><div class="stat"><b id="evalStat">—</b><span>Debrief</span></div></div>
+</section>
+
+<section class="screen" id="screen-pretest"><div class="card pad"><span class="eyebrow">Mission 0 · Baseline Briefing</span><h2>What Do You Already Know?</h2><p class="lede">Part 1 measures knowledge. Part 2 measures confidence. There are no right or wrong confidence answers.</p><div id="preA"></div><h3>Part 2 · Self-Check</h3><p class="lede">4 = Very High · 3 = High · 2 = Low · 1 = No Awareness</p><div id="preB"></div><div class="btn-row"><button class="btn gold" id="preSubmit" disabled>Submit Pre-Test →</button></div></div></section>
+
+<section class="screen" id="screen-game"><div class="card"><div class="hud"><span>⭐ <b class="big" id="hudPoints">0</b> pts</span><span>🔥 <b id="hudStreak">0</b></span><span class="spacer"></span><span id="hudCase">Case 1/5</span><span class="timer hidden" id="timer">05:00</span></div><div class="gamebody" id="gamebody"></div></div></section>
+
+<section class="screen" id="screen-posttest"><div class="card pad"><span class="eyebrow">Final Assessment</span><h2>Show What You've Learned</h2><p class="lede">Same structure as the baseline assessment so your learning progress can be compared.</p><div id="postA"></div><h3>Part 2 · Self-Check</h3><p class="lede">4 = Very High · 3 = High · 2 = Low · 1 = No Awareness</p><div id="postB"></div><div class="btn-row"><button class="btn gold" id="postSubmit" disabled>Submit Post-Test →</button></div></div></section>
+
+<section class="screen" id="screen-evaluation"><div class="card pad"><span class="eyebrow">Mission Debrief</span><h2>Evaluate the Training Site</h2><p class="lede">5 = Strongly Agree · 4 = Agree · 3 = Neutral · 2 = Disagree · 1 = Strongly Disagree</p><div id="eval"></div><div class="btn-row"><button class="btn gold" id="evalSubmit" disabled>Submit Evaluation & Claim Badge →</button></div></div></section>
+
+<section class="screen" id="screen-certificate"><div class="card pad cert"><div class="certificate"><span class="eyebrow">Official Bureau Record</span><h2 id="certTitle">Case Closed, Investigator.</h2><div class="certicon" id="certIcon">🏅</div><p class="lede" id="certBody">You completed the Junior Justice Bureau training program.</p><div class="stats"><div class="stat"><b id="certPre">0/10</b><span>Pre-Test</span></div><div class="stat"><b id="certPost">0/10</b><span>Post-Test</span></div><div class="stat"><b id="certChange">+0</b><span>Improvement</span></div><div class="stat"><b id="certPoints">0</b><span>Case XP</span></div></div></div><p class="lede" id="status" style="margin-top:18px"></p><div class="btn-row" style="justify-content:center"><button class="btn ghost hidden" id="retrySubmit" onclick="submitResultsAgain()">Submit Results Again</button><button class="btn gold" onclick="saveCertificatePDF()">Print / Save as PDF</button><button class="btn gold" onclick="downloadCertificate()">Download Certificate</button><button class="btn ghost" onclick="go('dashboard')">Command Center</button></div></div></section>
+<footer>The Junior Justice Bureau · Gamified learning tool on criminal liability · Grade 7 Training Program</footer>
+</div>
+
+<script>
+const ENDPOINT='https://formspree.io/f/xaewwydo',KEY='jjb_casefiles_v5';
+const A=[
+['A felony is committed when there is deceit or fault.',['True','False'],0],
+['Which stage of a felony is present when the offender has performed all acts of execution but the crime was not produced?',['Attempted','Frustrated','Consummated'],1],
+['Self-defense is an example of a/an ____ circumstance.',['Justifying','Exempting','Mitigating'],0],
+['A person who directly forces or induces another to commit a crime is called a/an ____.',['Principal','Accomplice','Accessory'],0],
+['Voluntary surrender is considered a/an ____ circumstance.',['Mitigating','Aggravating','Exempting'],0],
+['An accessory is someone who takes part before the commission of a felony.',['True','False'],1],
+['Insanity, when proven, may serve as a/an ____ circumstance.',['Exempting','Aggravating','Mitigating'],0],
+['Treachery is an example of a/an ____ circumstance.',['Aggravating','Mitigating','Justifying'],0],
+['Criminal liability may be extinguished by the death of the offender.',['True','False'],0],
+['The three stages of execution of a felony are attempted, frustrated, and consummated.',['True','False'],0]
+];
+const B=['I understand the elements that constitute a crime (felony).','I can identify the different stages of execution of a felony.','I understand circumstances that justify, exempt, mitigate, or aggravate criminal liability.','I can distinguish between a principal, accomplice, and accessory.','I understand how penalties correspond to different levels of criminal participation.'];
+const E=[['A. Content Quality',['The content presented accurate and relevant information on criminal liability.','The topics were organized in a logical and easy-to-follow manner.','The website used age-appropriate and understandable language.','The examples and scenarios used helped clarify legal concepts.']],['B. Usability / User Interface',['The website is easy to navigate.','The design and layout are visually appealing.','Instructions for each activity or game were clear.','The website functioned smoothly without technical issues.']],['C. Engagement and Interactivity',['The gamified activities (quizzes, badges, points, and levels) made learning more enjoyable.','I was motivated to complete all modules or levels.','The website encouraged me to actively participate rather than passively read.','I would recommend this website to other students.']],['D. Overall Effectiveness',['The website improved my understanding of criminal liability.','I feel more confident discussing criminal liability after using the website.','The gamified approach was more effective than traditional lecture-based learning.','I would like similar gamified learning tools to be used in other subjects.']]];
+const L=[
+{title:'Case 1 — What Makes a Felony',tag:'DOLO OR CULPA?',icon:'📖',brief:['Dolo (deceit/intent): the person meant to do it. They planned it or acted on purpose, knowing it was wrong.','Culpa (fault/negligence): nobody meant for it to happen. It happened because someone was careless, reckless, or not paying attention.','Both dolo and culpa can make an act a felony — the law cares about how it happened, not just what happened.'],tip:'Quick test: did they plan/intend this, or did it happen by accident through carelessness?',cases:[['Jasmine plans for days to take her classmate’s phone without permission, then does it on purpose.',['Dolo (deceit/intent)','Culpa (fault/negligence)'],0,'She acted with clear intent — that’s dolo.'],['Marco is texting while riding his bike and accidentally crashes into a food cart, damaging it.',['Dolo (deceit/intent)','Culpa (fault/negligence)'],1,'No intent to harm — it happened through carelessness, which is culpa.'],['A driver runs a red light because they weren’t paying attention, and hits a parked car.',['Dolo (deceit/intent)','Culpa (fault/negligence)'],1,'Lack of care/attention — that’s culpa (fault), not intent.'],['A student deliberately spreads a fake rumor to get another student in trouble.',['Dolo (deceit/intent)','Culpa (fault/negligence)'],0,'Deliberate and planned — this is dolo.']]},
+{title:'Case 2 — Stages of a Crime',tag:'ATTEMPTED, FRUSTRATED, OR CONSUMMATED?',icon:'⏱️',brief:['Attempted: the offender starts the act directly, but doesn’t finish all the steps — something or someone stops them partway.','Frustrated: the offender finishes every step needed, but the crime still doesn’t happen because of a cause outside their control.','Consummated: every step is done AND the intended result actually happens.'],tip:'Quick test: ask — did they finish all the steps? Did the result actually happen?',cases:[['A thief reaches into a bag to grab a wallet, but a guard grabs his arm before he can pull it out.',['Attempted','Frustrated','Consummated'],0,'He started the act but was stopped before finishing it — attempted.'],['A person stabs a victim with the intent to kill and does everything needed, but the victim survives because of quick medical help.',['Attempted','Frustrated','Consummated'],1,'All acts of execution were done, but the result was prevented by a cause outside the offender’s control — frustrated.'],['A shoplifter successfully walks out of the store with a stolen item in their bag.',['Attempted','Frustrated','Consummated'],2,'The crime was fully completed — consummated.'],['Someone throws a punch aiming to hit another student, but the punch is dodged completely and never lands.',['Attempted','Frustrated','Consummated'],0,'Only some of the act happened before it was interrupted — attempted.']]},
+{title:'Case 3 — Sort the Circumstance',tag:'CLICK THE MATCHING BOX',icon:'⚖️',brief:['Justifying: removes the crime entirely — the law says the act was actually lawful (like self-defense).','Exempting: the act is still wrong, but the person isn’t criminally punished (like being a minor, or acting under uncontrollable fear).','Mitigating: lowers the penalty (like voluntary surrender).','Aggravating: raises the penalty (like treachery, or abusing superior strength).'],tip:'Quick test: does it erase the crime, erase the punishment, lower it, or raise it?',bins:['Justifying','Exempting','Mitigating','Aggravating'],cases:[['Defending yourself from an attacker using reasonable force.','Justifying','Self-defense removes the crime entirely — justifying.'],['A person acts under an uncontrollable fear of an equal or greater injury.','Exempting','Irresistible force/uncontrollable fear removes criminal liability but not civil liability — exempting.'],['The offender is under 15 years old at the time of the offense.','Exempting','Minority below the age of criminal responsibility is exempting.'],['The offender voluntarily confessed and surrendered to authorities.','Mitigating','Voluntary surrender/confession lowers the penalty — mitigating.'],['The crime was committed by a band of armed men taking advantage of superior strength.','Aggravating','Abuse of superior strength increases the penalty — aggravating.'],['The offender committed the act to avoid an evil or injury that is real and greater than the harm caused.','Justifying','State of necessity is a justifying circumstance.'],['The killing was committed with treachery, giving the victim no chance to defend themselves.','Aggravating','Treachery is a classic aggravating circumstance.']]},
+{title:'Case 4 — Who’s Who',tag:'PRINCIPAL, ACCOMPLICE, OR ACCESSORY?',icon:'🕵️',brief:['Principal: directly commits the crime, forces/induces someone else to commit it, or is indispensable to it happening.','Accomplice: cooperates in the crime by helping before or during it, but their help isn’t essential.','Accessory: only gets involved after the crime is already committed — like hiding evidence or helping the offender escape.'],tip:'Quick test: ask — did they do it, help make it happen, or just help clean up afterward?',cases:[['Anna personally carries out the robbery herself, taking the items directly.',['Principal','Accomplice','Accessory'],0,'She directly performed the act — principal by direct participation.'],['Ben lends his crowbar knowing it will be used to break into a store, but doesn’t take part in the actual break-in.',['Principal','Accomplice','Accessory'],1,'He cooperated by providing means, but wasn’t essential or indispensable — accomplice.'],['Carlo hides his friend’s stolen goods in his house after the theft to help him avoid getting caught.',['Principal','Accomplice','Accessory'],2,'He helped after the crime was already committed — accessory.'],['Diane convinces her friend to commit the theft and promises to split the profit; the friend then commits it.',['Principal','Accomplice','Accessory'],0,'Inducing another to commit the crime makes her a principal by inducement.']]},
+{title:'Case 5 — Speed Round',tag:'5-MINUTE MIXED REVIEW',icon:'🔥',brief:['This final mission pulls questions from every case you have completed — dolo and culpa, stages of execution, circumstances, and participation.','You have 5 minutes to answer as many questions as possible. Each correct answer earns 5 XP, with streak bonuses for consecutive correct answers.','Wrong answers have no point penalty. Keep moving and use what you learned in the previous four missions.'],tip:'Trust your training, read each question carefully, and keep your streak alive!',cases:[]}
+];
+const SPEED=[...L[0].cases.map(c=>({text:c[0],opts:c[1],correct:c[2]})),...L[1].cases.map(c=>({text:c[0],opts:c[1],correct:c[2]})),...L[3].cases.map(c=>({text:c[0],opts:c[1],correct:c[2]})),{text:'Which stage has the offender completing every act, and the crime is produced?',opts:['Attempted','Frustrated','Consummated'],correct:2},{text:'Minority (being under 15) is what kind of circumstance?',opts:['Exempting','Aggravating','Justifying'],correct:0},{text:'Treachery is what kind of circumstance?',opts:['Mitigating','Aggravating','Exempting'],correct:1}];
+const MISS=[['pre','📝','Baseline Briefing','Complete the pre-test.'],['c1','📖','The Felony File','Master dolo vs. culpa.'],['c2','⏱️','Stages of the Act','Identify the stage.'],['c3','⚖️','Circumstance Sorter','Classify circumstances.'],['c4','🕵️','Who’s Who','Identify participation.'],['c5','🔥','Speed Round','Survive 5 minutes.'],['post','🎯','Final Assessment','Complete the post-test.'],['eval','📋','Mission Debrief','Evaluate the website.'],['cert','🏅','Justice Champion','Claim your record.']];
+const BADGES=[['bronze','🥉','Bronze Gavel','20+ case points',s=>s.points>=20],['silver','🥈','Silver Scale','60+ case points',s=>s.points>=60],['gold','🥇','Gold Robe','100+ case points',s=>s.points>=100],['champ','🏅','Justice Champion','140+ case points',s=>s.points>=140],['scholar','🎓','Case Scholar','Post-test improves',s=>s.pre.score>0&&s.post.score>s.pre.score],['streak','🔥','Hot Streak','5-answer streak',s=>s.bestStreak>=5]];
+const RANKS=[[0,'Recruit','🕵️',100],[100,'Junior Investigator','🔎',200],[200,'Case Analyst','📚',300],[300,'Senior Investigator','⚖️',450],[450,'Justice Champion','🏅',450]];
+let S=(()=>{try{return Object.assign({pre:{A:{},B:{},score:0,conf:0},post:{A:{},B:{},score:0,conf:0},eval:{},points:0,bestStreak:0,completed:[],stars:{},badges:[],sound:true,submitted:false},JSON.parse(localStorage.getItem(KEY)||'{}'))}catch{return {pre:{A:{},B:{},score:0,conf:0},post:{A:{},B:{},score:0,conf:0},eval:{},points:0,bestStreak:0,completed:[],stars:{},badges:[],sound:true,submitted:false}}})();
+let G={level:0,index:0,correct:0,total:0,start:0,streak:0,items:[],timer:null,time:300};
+const $=id=>document.getElementById(id),save=()=>localStorage.setItem(KEY,JSON.stringify(S));
+function toast(t){$('toast').textContent=t;$('toast').classList.add('show');clearTimeout(window._toast);window._toast=setTimeout(()=>$('toast').classList.remove('show'),1600)}
+function sound(f,d=.08,type='sine',v=.05,delay=0){if(!S.sound)return;try{let C=AudioContext||webkitAudioContext;window._audio??=new C;let o=window._audio.createOscillator(),g=window._audio.createGain(),t=window._audio.currentTime+delay;o.type=type;o.frequency.value=f;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(window._audio.destination);o.start(t);o.stop(t+d+.02)}catch(e){}}
+function confetti(){for(let i=0;i<55;i++){let x=document.createElement('i');x.className='confetti';x.style.left=Math.random()*100+'vw';x.style.background=['#d7ad45','#b6424f','#4c8b62','#4b78b4'][i%4];x.style.animationDelay=Math.random()*.5+'s';document.body.appendChild(x);setTimeout(()=>x.remove(),2200)}}
+function go(id){
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+  const target=$('screen-'+id);
+  if(!target)return;
+  target.classList.add('active');
+  if(id==='dashboard')renderDash();
+  if(id==='certificate')renderCert();
+  renderNav();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function done(id){if(id==='pre')return Object.keys(S.pre.A).length===10;if(id==='post')return Object.keys(S.post.A).length===10;if(id==='eval')return Object.keys(S.eval).length===16;if(id==='cert')return S.submitted;if(/^c[1-5]$/.test(id))return S.completed.includes(+id.slice(1)-1);return false}
+function unlocked(id){if(id==='pre')return true;if(id==='c1')return done('pre');if(/^c[2-5]$/.test(id))return done('c'+(+id.slice(1)-1));if(id==='post')return done('c5');if(id==='eval')return done('post');if(id==='cert')return done('eval');return false}
+function rank(){let r=RANKS[0];for(let x of RANKS)if(S.points>=x[0])r=x;return r}
+function renderNav(){let ns=[['dashboard','Command Center'],['pretest','Pre-Test'],['game','Case Files'],['posttest','Post-Test'],['evaluation','Survey'],['certificate','Badge']];let active=document.querySelector('.screen.active')?.id.replace('screen-','')||'dashboard';$('nav').innerHTML=ns.map(n=>`<button class="${active===n[0]?'active':''}" onclick="nav('${n[0]}')">${n[1]}</button>`).join('')}
+function nav(id){if(id==='dashboard')return go(id);if(!unlocked(id==='game'?'c1':id))return toast('🔒 Complete the previous mission first.');if(id==='game')return startLevel(Math.min(S.completed.length,4));go(id)}
+function renderDash(){let r=rank(),pct=r[3]===r[0]?100:Math.min(100,(S.points-r[0])/(r[3]-r[0])*100);$('rankName').textContent=r[1];$('rankIcon').textContent=r[2];$('xpFill').style.width=pct+'%';$('xpText').textContent=S.points+' XP';$('nextXP').textContent=r[3]===r[0]?'MAX':r[3]+' XP';$('points').textContent=S.points;$('streak').textContent=S.bestStreak;$('preStat').textContent=S.pre.score?S.pre.score+'/10':'—';$('postStat').textContent=S.post.score?S.post.score+'/10':'—';let ch=S.post.score?S.post.score-S.pre.score:null;$('changeStat').textContent=ch===null?'—':(ch>=0?'+':'')+ch;$('evalStat').textContent=done('eval')?'Done':'—';$('continue').textContent=S.submitted?'Review Command Center →':'Continue Training →';$('missionGrid').innerHTML=MISS.map((m,i)=>{let d=done(m[0]),u=unlocked(m[0]);return `<button class="mission" ${u?'':'disabled'} onclick="${u?`missionClick('${m[0]}')`:''}">${d?'<span class="check">✓</span>':''}<div class="mi">${m[1]}</div><small>Mission ${i}</small><strong>${m[2]}</strong><em>${u?m[3]:'🔒 Locked — complete the previous mission.'}</em></button>`}).join('');$('badgeWall').innerHTML=BADGES.map(b=>{let e=S.badges.includes(b[0]);return `<div class="badge ${e?'':'lock'}"><span class="bi">${b[1]}</span><div><b>${b[2]}</b><small>${b[3]}</small></div></div>`}).join('')}
+function missionClick(id){if(id==='pre'||id==='post'||id==='eval'||id==='cert')return go(id==='pre'?'pretest':id==='post'?'posttest':id);if(id[0]==='c')startLevel(+id.slice(1)-1)}
+$('continue').onclick=()=>{if(!done('pre'))go('pretest');else if(S.completed.length<5)startLevel(S.completed.length);else if(!done('post'))go('posttest');else if(!done('eval'))go('evaluation');else go('certificate')};
+function renderTest(p){let a=$(p+'A'),b=$(p+'B'),s=S[p];a.innerHTML=A.map((q,i)=>`<div class="qblock"><span class="qnum">QUESTION ${i+1} / 10</span><div class="qtext">${q[0]}</div><div class="options">${q[1].map((o,j)=>`<label class="opt ${s.A[i]===j?'selected':''}" onclick="ansTest('${p}','A',${i},${j})">${o}</label>`).join('')}</div></div>`).join('');b.innerHTML=B.map((q,i)=>`<div class="qblock"><span class="qnum">STATEMENT ${i+1} / 5</span><div class="qtext">${q}</div><div class="scale">${[4,3,2,1].map(v=>`<button class="${s.B[i]===v?'selected':''}" onclick="ansTest('${p}','B',${i},${v})">${v}</button>`).join('')}</div></div>`).join('');$(p+'Submit').disabled=!(Object.keys(s.A).length===10&&Object.keys(s.B).length===5)}
+function ansTest(p,t,i,v){sound(620,.04,'square',.03);S[p][t][i]=v;save();renderTest(p)}
+function submitTest(p){let s=S[p];s.score=A.reduce((n,q,i)=>n+(s.A[i]===q[2]?1:0),0);s.conf=B.reduce((n,_,i)=>n+(s.B[i]||0),0);save();go('dashboard');toast(p==='pre'?'Baseline recorded — Case Files unlocked!':'Post-test recorded — finish your debrief!');renderDash()}
+$('preSubmit').onclick=()=>submitTest('pre');$('postSubmit').onclick=()=>submitTest('post');
+function startLevel(l){if(l===0&&!done('pre'))return go('pretest');if(l>0&&!done('c'+l))return toast('🔒 Complete the previous case first.');G={level:l,index:0,correct:0,total:0,start:S.points,streak:0,items:[],timer:null,time:300};go('game');renderLesson()}
+function renderLesson(){let l=L[G.level];$('hudPoints').textContent=S.points;$('hudStreak').textContent=G.streak;$('hudCase').textContent=`Case ${G.level+1}/5`;$('timer').classList.add('hidden');$('gamebody').innerHTML=`<span class="eyebrow">FIELD BRIEFING</span><h2>${l.title}</h2><div class="lesson"><div class="lessonicon">${l.icon}</div><h3>Mission Briefing</h3><ul>${l.brief.map(x=>`<li>${x}</li>`).join('')}</ul><div class="tip">💡 ${l.tip}</div></div><div class="btn-row"><button class="btn gold" onclick="beginLevel()">Begin Mission →</button></div>`}
+function beginLevel(){if(G.level===4){G.items=[...SPEED].sort(()=>Math.random()-.5);startTimer();renderSpeed()}else renderCase()}
+function startTimer(){let t=$('timer');t.classList.remove('hidden');G.time=300;updateTimer();G.timer=setInterval(()=>{G.time--;updateTimer();if(G.time<=0){clearInterval(G.timer);finishLevel()}},1000)}function updateTimer(){let m=String(Math.floor(G.time/60)).padStart(2,'0'),s=String(G.time%60).padStart(2,'0');$('timer').textContent=m+':'+s;$('timer').classList.toggle('low',G.time<=30)}
+function renderCase(){
+  let l=L[G.level],c=l.cases[G.index];
+  const pct=(G.index/l.cases.length*100).toFixed(0);
+  const isSorter=Array.isArray(l.bins);
+  const choices=isSorter?l.bins:c[1];
+  $('gamebody').innerHTML=`<span class="eyebrow">${l.tag}</span><h2>${l.title}</h2><div class="progress"><div style="width:${pct}%"></div></div><div class="casefile"><span class="tag">Case File #${G.index+1} of ${l.cases.length}</span><p>${c[0]}</p></div><div class="options ${isSorter?'sort-options':''}" id="opts">${choices.map((o,j)=>`<label class="opt" onclick="gameAnswer(${j})">${o}</label>`).join('')}</div><div class="feedback" id="fb"></div><div class="btn-row"><button class="btn gold hidden" id="next" onclick="nextCase()">Next Case →</button></div>`;
+}
+function award(ok,base){G.total++;let e=0;if(ok){G.correct++;G.streak++;e=base;if(G.streak>=3)e+=Math.min(10,(G.streak-2)*2);S.points+=e;if(G.streak>S.bestStreak)S.bestStreak=G.streak;sound(880,.12);if(G.streak>=3)toast(`🔥 Streak x${G.streak}! +${e} pts`)}else{G.streak=0;sound(220,.2,'sawtooth',.04)}$('hudPoints').textContent=S.points;$('hudStreak').textContent=G.streak;save();return e}
+function gameAnswer(j){
+  let l=L[G.level],c=l.cases[G.index],isSorter=Array.isArray(l.bins);
+  const selected=isSorter?l.bins[j]:c[1][j];
+  const correct=isSorter?c[1]:c[2];
+  const ok=isSorter?selected===correct:j===correct;
+  const e=award(ok,10);
+  document.querySelectorAll('#opts .opt').forEach((x,i)=>{
+    x.onclick=null;
+    if(isSorter && l.bins[i]===correct)x.classList.add('selected');
+    if(!isSorter && i===correct)x.classList.add('selected');
+  });
+  let f=$('fb');
+  f.className='feedback show '+(ok?'correct':'wrong');
+  f.textContent=(ok?`✓ Correct (+${e}) — `:'✗ Not quite — ')+c[isSorter?2:3];
+  $('next').classList.remove('hidden');
+}
+function nextCase(){G.index++;if(G.index>=L[G.level].cases.length)finishLevel();else renderCase()}
+function renderSpeed(){if(G.time<=0)return finishLevel();let c=G.items[G.index];if(!c)return finishLevel();$('gamebody').innerHTML=`<span class="eyebrow">ANSWER AS MANY AS YOU CAN</span><h2>Case 5 — Speed Round</h2><div class="casefile"><span class="tag">Rapid Question ${G.index+1} / ${G.items.length}</span><p>${c.text}</p></div><div class="options" id="opts">${c.opts.map((o,j)=>`<label class="opt" onclick="speedAnswer(${j})">${o}</label>`).join('')}</div>`}
+function speedAnswer(j){let c=G.items[G.index];award(j===c.correct,5);G.index++;renderSpeed()}
+function finishLevel(){clearInterval(G.timer);let pct=G.total?G.correct/G.total:0,stars=pct>=.9?3:pct>=.6?2:1;S.completed=[...new Set([...S.completed,G.level])];S.stars[G.level]=Math.max(S.stars[G.level]||0,stars);let newBadges=[];BADGES.forEach(b=>{if(b[4](S)&&!S.badges.includes(b[0])){S.badges.push(b[0]);newBadges.push(b)}});save();if(newBadges.length||G.level===4){sound(660,.1);sound(880,.1,'sine',.05,.1);confetti()}$('timer').classList.add('hidden');$('gamebody').innerHTML=`<div class="clear"><span class="eyebrow">CASE CLOSED</span><h2>${L[G.level].title}</h2><div class="stars">${[1,2,3].map(n=>n<=stars?'⭐':'<span class="off">⭐</span>').join('')}</div><div class="cleargrid"><div class="clearbox"><b>${G.correct}/${G.total}</b><small>Correct</small></div><div class="clearbox"><b>+${S.points-G.start}</b><small>Points</small></div><div class="clearbox"><b>${G.streak}</b><small>Streak</small></div></div>${newBadges.length?`<p class="lede"><strong>🏅 Badge unlocked: ${newBadges.map(x=>x[2]).join(', ')}</strong></p>`:''}<div class="btn-row" style="justify-content:center"><button class="btn gold" onclick="afterLevel()">${G.level===4?'Finish Case Files →':'Continue →'}</button><button class="btn ghost" onclick="go('dashboard')">Mission Map</button></div></div>`;renderDash()}
+function afterLevel(){if(G.level<4)startLevel(G.level+1);else{go('dashboard');toast('🎯 All five cases closed! Post-test unlocked.');renderDash()}}
+function renderEval(){let n=0,o='';E.forEach(g=>{o+=`<h3>${g[0]}</h3>`;g[1].forEach(q=>{let i=n++;o+=`<div class="qblock"><div class="qtext">${q}</div><div class="scale five">${[5,4,3,2,1].map(v=>`<button class="${S.eval[i]===v?'selected':''}" onclick="ansEval(${i},${v})">${v}</button>`).join('')}</div></div>`})});$('eval').innerHTML=o;$('evalSubmit').disabled=Object.keys(S.eval).length!==16}
+function ansEval(i,v){sound(620,.04,'square',.03);S.eval[i]=v;save();renderEval()}
+function payload(){let p={submitted_at:new Date().toISOString(),pretest_score:S.pre.score+'/10',pretest_confidence:S.pre.conf+'/20',posttest_score:S.post.score+'/10',posttest_confidence:S.post.conf+'/20',score_change:S.post.score-S.pre.score,game_points:S.points,badges:S.badges.join(', ')||'None'};A.forEach((q,i)=>{p['pretest_q'+(i+1)]=q[1][S.pre.A[i]]||'';p['posttest_q'+(i+1)]=q[1][S.post.A[i]]||''});B.forEach((_,i)=>{p['pretest_confidence_'+(i+1)]=S.pre.B[i]||'';p['posttest_confidence_'+(i+1)]=S.post.B[i]||''});Object.keys(S.eval).forEach(i=>p['eval_'+(+i+1)]=S.eval[i]);return p}
+$('evalSubmit').onclick=async()=>{
+  if(Object.keys(S.eval).length<16)return;
+  const btn=$('evalSubmit');
+  btn.disabled=true;
+  btn.textContent='Submitting record…';
+  BADGES.forEach(b=>{if(b[4](S)&&!S.badges.includes(b[0]))S.badges.push(b[0])});
+  save();
+  renderDash();
+  renderCert();
+  go('certificate');
+  confetti();
+  $('status').textContent='Sending your training record…';
+
+  try{
+    const data=payload();
+    const formData=new FormData();
+    Object.entries(data).forEach(([key,value])=>formData.append(key,String(value ?? '')));
+    const r=await fetch(ENDPOINT,{
+      method:'POST',
+      body:formData,
+      headers:{'Accept':'application/json'}
+    });
+
+    if(r.ok){
+      S.submitted=true;
+      save();
+      renderDash();
+      $('status').textContent='✓ Your complete training record was submitted successfully to Formspree.';
+      toast('✓ Training record submitted!');
+    }else{
+      let detail='';
+      try{const j=await r.json();detail=(j.errors||[]).map(x=>x.message).join(' ')}catch(e){}
+      $('status').textContent='⚠ Your certificate is ready, but Formspree did not accept the submission.'+(detail?' '+detail:' Please try the Submit Again button below.');
+      $('retrySubmit').classList.remove('hidden');
+    }
+  }catch(e){
+    $('status').textContent='⚠ Your certificate is ready, but the online submission could not be reached. Check your connection and try again.';
+    $('retrySubmit').classList.remove('hidden');
+  }
+  btn.textContent='Submitted ✓';
+};
+
+async function submitResultsAgain(){
+  const btn=$('retrySubmit');
+  btn.disabled=true;
+  btn.textContent='Submitting…';
+  $('status').textContent='Retrying your Formspree submission…';
+  try{
+    const data=payload();
+    const formData=new FormData();
+    Object.entries(data).forEach(([key,value])=>formData.append(key,String(value ?? '')));
+    const r=await fetch(ENDPOINT,{method:'POST',body:formData,headers:{'Accept':'application/json'}});
+    if(r.ok){
+      S.submitted=true; save(); renderDash();
+      $('status').textContent='✓ Your complete training record was submitted successfully.';
+      btn.classList.add('hidden');
+      toast('✓ Results submitted!');
+    }else{
+      $('status').textContent='⚠ Formspree still did not accept the submission. Please try again when your connection is stable.';
+      btn.disabled=false; btn.textContent='Submit Results Again';
+    }
+  }catch(e){
+    $('status').textContent='⚠ Could not reach Formspree. Please check your connection and try again.';
+    btn.disabled=false; btn.textContent='Submit Results Again';
+  }
+}
+function certificateHTML(){
+  const ch=S.post.score-S.pre.score;
+  const title=$('certTitle').textContent;
+  const icon=$('certIcon').textContent;
+  const body=$('certBody').textContent;
+  return `<!doctype html><html><head><meta charset="utf-8"><title>Junior Justice Bureau Certificate</title><style>body{margin:0;background:#0b1224;font-family:Arial,sans-serif;color:#18223a}.wrap{max-width:850px;margin:40px auto;padding:14px}.cert{background:#f7f1e3;border:8px solid #d7ad45;padding:55px;text-align:center;box-shadow:0 20px 60px #0006}.eyebrow{letter-spacing:3px;text-transform:uppercase;color:#b6424f;font-weight:700;font-size:13px}.title{font-family:Georgia,serif;font-size:42px;margin:18px 0 8px}.icon{font-size:80px;margin:20px}.body{font-size:18px;color:#5d564b}.stats{display:flex;justify-content:center;gap:35px;margin-top:35px}.stat b{display:block;font:700 28px Georgia}.stat span{font-size:11px;text-transform:uppercase;color:#71695c;letter-spacing:1px}@media print{body{background:white}.wrap{margin:0}.cert{box-shadow:none}}</style></head><body><div class="wrap"><div class="cert"><div class="eyebrow">Official Bureau Record</div><div class="title">${title}</div><div class="icon">${icon}</div><p class="body">${body}</p><div class="stats"><div class="stat"><b>${S.pre.score}/10</b><span>Pre-Test</span></div><div class="stat"><b>${S.post.score}/10</b><span>Post-Test</span></div><div class="stat"><b>${ch>=0?'+':''}${ch}</b><span>Improvement</span></div><div class="stat"><b>${S.points}</b><span>Case XP</span></div></div></div></div></body></html>`;
+}
+function saveCertificatePDF(){
+  const w=window.open('','_blank');
+  if(!w){toast('Please allow pop-ups to save the certificate.');return;}
+  w.document.write(certificateHTML());
+  w.document.close();
+  w.focus();
+  setTimeout(()=>w.print(),350);
+}
+function downloadCertificate(){
+  const blob=new Blob([certificateHTML()],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='Junior_Justice_Bureau_Certificate.html';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  toast('🏅 Certificate downloaded!');
+}
+
+function renderCert(){let ch=S.post.score-S.pre.score,r=rank();$('certTitle').textContent=S.badges.includes('champ')?'Justice Champion!':r[1]+' — Case Closed';$('certIcon').textContent=BADGES.find(b=>b[0]===S.badges.at(-1))?.[1]||'🏅';$('certBody').textContent=S.badges.length>=4?'Outstanding work — you completed the full Bureau training pathway.':'You completed the Junior Justice Bureau training program.';$('certPre').textContent=S.pre.score+'/10';$('certPost').textContent=S.post.score+'/10';$('certChange').textContent=(ch>=0?'+':'')+ch;$('certPoints').textContent=S.points}
+$('sound').onclick=()=>{S.sound=!S.sound;$('sound').textContent=S.sound?'🔊':'🔇';save()};$('reset').onclick=()=>{if(confirm('Reset all Junior Justice Bureau progress on this device?')){localStorage.removeItem(KEY);location.reload()}};
+renderTest('pre');renderTest('post');renderEval();renderDash();renderNav();renderCert();
+</script>
+</body>
+</html>
